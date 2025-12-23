@@ -27,7 +27,7 @@ body {
     line-height: 1.6;
 }
 
-/* Animaciones */
+/* ===== ANIMACIONES ===== */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -61,7 +61,7 @@ body {
     animation: fadeIn 1.2s ease-out;
 }
 
-/* Flores decorativas - RUTAS CORRECTAS CON EFECTO FADE */
+/* ===== FLORES DECORATIVAS ===== */
 .floral-decoration {
     position: fixed;
     background-size: contain;
@@ -94,16 +94,12 @@ body {
     -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
 }
 
-/* Estados de visibilidad para flores */
-.floral-top-right.hidden {
-    opacity: 0;
-}
-
+.floral-top-right.hidden,
 .floral-bottom-left.hidden {
     opacity: 0;
 }
 
-/* Hero Section */
+/* ===== HERO SECTION ===== */
 .hero {
     min-height: 100vh;
     display: flex;
@@ -248,7 +244,7 @@ body {
     color: var(--color-sage);
 }
 
-/* Photo Section - EFECTO DEGRADADO ELEGANTE CON BLUR */
+/* ===== PHOTO SECTION ===== */
 .photo-section {
     padding: 130px 20px;
     background-color: var(--color-cream);
@@ -330,7 +326,7 @@ body {
     filter: brightness(1.05) contrast(1.05);
 }
 
-/* Invitation Personal Section */
+/* ===== INVITATION PERSONAL ===== */
 .invitation-personal {
     padding: 130px 20px;
     text-align: center;
@@ -381,7 +377,7 @@ body {
     color: var(--color-sage);
 }
 
-/* Date Section */
+/* ===== DATE SECTION ===== */
 .date-section {
     padding: 130px 20px;
     background-color: var(--color-cream);
@@ -488,7 +484,7 @@ body {
     font-weight: 500;
 }
 
-/* Location Section */
+/* ===== LOCATION SECTION ===== */
 .location {
     padding: 130px 20px;
     background: var(--color-cream);
@@ -567,7 +563,7 @@ body {
     box-shadow: 0 18px 55px rgba(125, 155, 147, 0.6);
 }
 
-/* Timeline Section */
+/* ===== TIMELINE SECTION ===== */
 .timeline {
     padding: 130px 20px;
     background-color: var(--color-cream);
@@ -662,7 +658,7 @@ body {
     font-weight: 400;
 }
 
-/* Dress Code Section */
+/* ===== DRESS CODE SECTION ===== */
 .dress-code {
     padding: 130px 20px;
     background: var(--color-cream);
@@ -748,7 +744,7 @@ body {
     font-weight: 600;
 }
 
-/* Gifts Section */
+/* ===== GIFTS SECTION ===== */
 .gifts {
     padding: 130px 20px;
     background: var(--color-cream);
@@ -815,7 +811,7 @@ body {
     color: var(--color-sage);
 }
 
-/* Important Details Section */
+/* ===== IMPORTANT DETAILS ===== */
 .important-details {
     padding: 130px 20px;
     background: var(--color-cream);
@@ -871,7 +867,7 @@ body {
     line-height: 2.2;
 }
 
-/* Accommodation Section */
+/* ===== ACCOMMODATION ===== */
 .accommodation {
     padding: 130px 20px;
     background-color: var(--color-cream);
@@ -951,7 +947,7 @@ body {
     color: var(--color-sage);
 }
 
-/* Confirmation Section */
+/* ===== CONFIRMATION ===== */
 .confirmation {
     padding: 130px 20px;
     background-color: var(--color-cream);
@@ -1042,7 +1038,7 @@ body {
     background: linear-gradient(135deg, #6a8379 0%, var(--color-sage) 100%);
 }
 
-/* Footer Section */
+/* ===== FOOTER ===== */
 .footer {
     padding: 130px 20px 90px;
     background: linear-gradient(to bottom, var(--color-cream), #fdfcfa);
@@ -1097,146 +1093,7 @@ body {
     color: var(--color-sage);
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .name-first, .name-second {
-        font-size: 3.8rem;
-        letter-spacing: 4px;
-    }
-    
-    .ampersand {
-        font-size: 4rem;
-    }
-    
-    .our-wedding {
-        font-size: 5rem;
-    }
-    
-    .date-number {
-        font-size: 8rem;
-    }
-    
-    .section-title, .gifts-title, .confirmation-title {
-        font-size: 4.8rem;
-    }
-    
-    .timeline-line {
-        left: 70px;
-    }
-    
-    .timeline-icon {
-        width: 110px;
-        height: 110px;
-        font-size: 2.8rem;
-    }
-    
-    .floral-top-right {
-        width: 350px;
-        height: 350px;
-    }
-    
-    .floral-bottom-left {
-        width: 400px;
-        height: 400px;
-    }
-    
-    .btn-whatsapp {
-        min-width: 320px;
-        padding: 28px 42px;
-    }
-    
-    .photo-wrapper-fade {
-        border-radius: 6px;
-    }
-    
-    .photo-wrapper-fade img {
-        max-height: 500px;
-    }
-    
-    .container {
-        padding: 0 20px;
-    }
-    
-    .details-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .hotel-list {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 480px) {
-    .countdown {
-        gap: 28px;
-    }
-    
-    .countdown-item {
-        min-width: 100px;
-        padding: 25px 20px;
-    }
-    
-    .countdown-number {
-        font-size: 3.8rem;
-    }
-    
-    .contact-buttons {
-        gap: 30px;
-    }
-    
-    .floral-top-right {
-        width: 300px;
-        height: 300px;
-    }
-    
-    .floral-bottom-left {
-        width: 360px;
-        height: 360px;
-    }
-    
-    .photo-wrapper-fade {
-        border-radius: 4px;
-    }
-    
-    .photo-wrapper-fade img {
-        max-height: 400px;
-    }
-    
-    .photo-wrapper-fade::before,
-    .photo-wrapper-fade::after {
-        height: 120px;
-    }
-    .music-button {
-        width: 50px;
-        height: 50px;
-        font-size: 1.3rem;
-    }
-    
-    #music-control {
-        bottom: 20px;
-        right: 20px;
-    }
-}
-
-/* Transiciones suaves */
-* {
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
-}
-
-::selection {
-    background-color: var(--color-sage);
-    color: white;
-}
-
-::-moz-selection {
-    background-color: var(--color-sage);
-    color: white;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-/* Control de Música */
+/* ===== MUSIC CONTROL ===== */
 #music-control {
     position: fixed;
     bottom: 30px;
@@ -1282,37 +1139,527 @@ html {
     opacity: 0;
     pointer-events: none;
 }
-/* Mensaje de activación de música */
-#music-prompt {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 99999;
-    background: rgba(125, 155, 147, 0.95);
-    padding: 30px 50px;
-    border-radius: 20px;
-    box-shadow: 0 15px 50px rgba(0,0,0,0.3);
-    cursor: pointer;
-    transition: opacity 0.5s ease;
-    backdrop-filter: blur(10px);
+
+/* ===== RESPONSIVE - OPTIMIZADO PARA MÓVILES ===== */
+
+/* Tablets */
+@media (max-width: 1024px) {
+    .container {
+        padding: 0 25px;
+    }
+    
+    .floral-top-right {
+        width: 400px;
+        height: 400px;
+        opacity: 0.5;
+    }
+    
+    .floral-bottom-left {
+        width: 450px;
+        height: 450px;
+        opacity: 0.5;
+    }
 }
 
-.music-prompt-content {
-    display: flex;
-    align-items: center;
-    gap: 20px;
+/* MÓVILES - Prioridad */
+@media (max-width: 768px) {
+    .hero {
+        padding: 80px 15px;
+        min-height: 90vh;
+    }
+    
+    .name-first, .name-second {
+        font-size: 3rem;
+        letter-spacing: 3px;
+        margin: 8px 0;
+    }
+    
+    .ampersand {
+        font-size: 3.5rem;
+        margin: 15px 0;
+    }
+    
+    .invitation-intro {
+        font-size: 1.4rem;
+        line-height: 1.9;
+        margin: 25px 0;
+    }
+    
+    .our-wedding {
+        font-size: 4.5rem;
+        margin: 30px 0;
+    }
+    
+    .reception-time {
+        font-size: 1.5rem;
+    }
+    
+    .event-date {
+        font-size: 1.6rem;
+    }
+    
+    .venue-name {
+        font-size: 1.5rem;
+    }
+    
+    .venue-address {
+        font-size: 1.3rem;
+    }
+    
+    .bible-verse {
+        padding: 25px 20px;
+        margin: 35px 15px;
+    }
+    
+    .verse-text {
+        font-size: 1.1rem;
+        line-height: 1.8;
+    }
+    
+    .verse-ref {
+        font-size: 1rem;
+    }
+    
+    .photo-section {
+        padding: 80px 15px;
+    }
+    
+    .photo-wrapper-fade {
+        border-radius: 6px;
+    }
+    
+    .photo-wrapper-fade img {
+        max-height: 450px;
+    }
+    
+    .photo-wrapper-fade::before,
+    .photo-wrapper-fade::after {
+        height: 140px;
+    }
+    
+    .invitation-personal {
+        padding: 80px 20px;
+    }
+    
+    .invitation-text {
+        font-size: 1.5rem;
+        line-height: 2.1;
+    }
+    
+    .highlight-name {
+        font-size: 2.2rem;
+        margin: 25px 0;
+    }
+    
+    .guest-count {
+        font-size: 1.3rem;
+    }
+    
+    .date-section {
+        padding: 80px 20px;
+    }
+    
+    .day-label {
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+    
+    .date-number {
+        font-size: 7rem;
+        margin: 20px 0;
+    }
+    
+    .month-year {
+        font-size: 2.2rem;
+    }
+    
+    .countdown-wrapper {
+        margin-top: 50px;
+    }
+    
+    .countdown-title {
+        font-size: 1.5rem;
+        margin-bottom: 30px;
+    }
+    
+    .countdown {
+        gap: 20px;
+    }
+    
+    .countdown-item {
+        min-width: 80px;
+        padding: 20px 15px;
+    }
+    
+    .countdown-number {
+        font-size: 3rem;
+    }
+    
+    .countdown-label {
+        font-size: 0.9rem;
+        margin-top: 12px;
+    }
+    
+    .location {
+        padding: 80px 20px;
+    }
+    
+    .location-icon {
+        font-size: 4rem;
+        margin-bottom: 25px;
+    }
+    
+    .location-title {
+        font-size: 4.5rem;
+        margin-bottom: 25px;
+    }
+    
+    .location-venue {
+        font-size: 2rem;
+    }
+    
+    .location-address {
+        font-size: 1.4rem;
+    }
+    
+    .location-time {
+        font-size: 1.6rem;
+        margin-bottom: 35px;
+    }
+    
+    .btn-location {
+        padding: 18px 40px;
+        font-size: 1.1rem;
+        width: 100%;
+        max-width: 350px;
+    }
+    
+    .timeline {
+        padding: 80px 20px;
+    }
+    
+    .section-title {
+        font-size: 4rem;
+        margin-bottom: 60px;
+    }
+    
+    .section-title i {
+        font-size: 3.5rem;
+    }
+    
+    .timeline-container {
+        padding-left: 20px;
+    }
+    
+    .timeline-line {
+        left: 55px;
+        width: 3px;
+    }
+    
+    .timeline-item {
+        gap: 25px;
+        margin-bottom: 50px;
+    }
+    
+    .timeline-icon {
+        width: 80px;
+        height: 80px;
+        font-size: 2rem;
+        border: 4px solid var(--color-sage);
+    }
+    
+    .timeline-content {
+        padding-top: 20px;
+    }
+    
+    .timeline-time {
+        font-size: 1.8rem;
+        margin-bottom: 8px;
+    }
+    
+    .timeline-event {
+        font-size: 1.4rem;
+    }
+    
+    .dress-code {
+        padding: 80px 20px;
+    }
+    
+    .dress-code-card {
+        padding: 50px 30px;
+    }
+    
+    .dress-title {
+        font-size: 1.6rem;
+    }
+    
+    .dress-type {
+        font-size: 4rem;
+        margin: 25px 0;
+    }
+    
+    .dress-icons {
+        gap: 50px;
+        margin: 40px 0;
+    }
+    
+    .dress-icon {
+        font-size: 4rem;
+    }
+    
+    .dress-description {
+        font-size: 1.3rem;
+        line-height: 2.1;
+    }
+    
+    .gifts {
+        padding: 80px 20px;
+    }
+    
+    .gifts-title {
+        font-size: 4.5rem;
+        margin-bottom: 50px;
+    }
+    
+    .gift-card {
+        padding: 50px 30px;
+    }
+    
+    .gift-icon-large {
+        font-size: 4.5rem;
+    }
+    
+    .gift-text {
+        font-size: 1.5rem;
+        line-height: 2.2;
+    }
+    
+    .gift-subtitle {
+        font-size: 1.4rem;
+        margin-top: 30px;
+    }
+    
+    .important-details {
+        padding: 80px 20px;
+    }
+    
+    .details-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .detail-item {
+        padding: 40px 30px;
+    }
+    
+    .detail-icon {
+        font-size: 3.5rem;
+    }
+    
+    .detail-title {
+        font-size: 1.7rem;
+    }
+    
+    .detail-text {
+        font-size: 1.2rem;
+    }
+    
+    .accommodation {
+        padding: 80px 20px;
+    }
+    
+    .accommodation-text {
+        font-size: 1.5rem;
+        margin-bottom: 40px;
+    }
+    
+    .hotel-list {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        margin: 40px 0;
+    }
+    
+    .hotel-item {
+        padding: 40px 30px;
+    }
+    
+    .hotel-icon {
+        font-size: 3.5rem;
+    }
+    
+    .hotel-item h4 {
+        font-size: 1.6rem;
+    }
+    
+    .hotel-item p {
+        font-size: 1.2rem;
+    }
+    
+    .accommodation-note {
+        font-size: 1.3rem;
+    }
+    
+    .confirmation {
+        padding: 80px 20px;
+    }
+    
+    .confirmation-title {
+        font-size: 4.5rem;
+        margin-bottom: 30px;
+    }
+    
+    .confirmation-deadline {
+        font-size: 1.5rem;
+        margin-bottom: 50px;
+    }
+    
+    .contact-buttons {
+        flex-direction: column;
+        gap: 25px;
+        align-items: center;
+    }
+    
+    .btn-whatsapp {
+        min-width: auto;
+        width: 100%;
+        max-width: 350px;
+        padding: 22px 35px;
+    }
+    
+    .btn-whatsapp i.fa-whatsapp {
+        font-size: 3rem;
+    }
+    
+    .btn-label {
+        font-size: 1.3rem;
+    }
+    
+    .btn-phone {
+        font-size: 1.1rem;
+    }
+    
+    .footer {
+        padding: 80px 20px 60px;
+    }
+    
+    .footer-heart {
+        font-size: 3.5rem;
+    }
+    
+    .footer-text {
+        font-size: 1.6rem;
+        line-height: 2.2;
+        margin-bottom: 35px;
+    }
+    
+    .footer-initials {
+        font-size: 5rem;
+        margin: 30px 0 20px;
+    }
+    
+    .footer-date {
+        font-size: 1.2rem;
+    }
+    
+    .floral-top-right {
+        width: 250px;
+        height: 250px;
+        opacity: 0.4;
+    }
+    
+    .floral-bottom-left {
+        width: 300px;
+        height: 300px;
+        opacity: 0.4;
+    }
+    
+    .music-button {
+        width: 55px;
+        height: 55px;
+        font-size: 1.4rem;
+    }
+    
+    #music-control {
+        bottom: 20px;
+        right: 20px;
+    }
+}
+
+/* Móviles pequeños */
+@media (max-width: 380px) {
+    .name-first, .name-second {
+        font-size: 2.5rem;
+        letter-spacing: 2px;
+    }
+    
+    .ampersand {
+        font-size: 3rem;
+    }
+    
+    .our-wedding {
+        font-size: 4rem;
+    }
+    
+    .date-number {
+        font-size: 6rem;
+    }
+    
+    .countdown-item {
+        min-width: 70px;
+        padding: 15px 10px;
+    }
+    
+    .countdown-number {
+        font-size: 2.5rem;
+    }
+    
+    .countdown-label {
+        font-size: 0.8rem;
+    }
+    
+    .timeline-icon {
+        width: 70px;
+        height: 70px;
+        font-size: 1.8rem;
+    }
+    
+    .timeline-line {
+        left: 45px;
+    }
+    
+    .floral-top-right {
+        width: 200px;
+        height: 200px;
+    }
+    
+    .floral-bottom-left {
+        width: 250px;
+        height: 250px;
+    }
+    
+    .music-button {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+    
+    #music-control {
+        bottom: 15px;
+        right: 15px;
+    }
+}
+
+/* Transiciones y efectos globales */
+html {
+    scroll-behavior: smooth;
+}
+
+::selection {
+    background-color: var(--color-sage);
     color: white;
-    font-family: var(--font-body);
-    font-size: 1.4rem;
 }
 
-.music-prompt-content i {
-    font-size: 2.5rem;
-    animation: pulse 1.5s ease-in-out infinite;
-}
-
-#music-prompt:hover {
-    transform: translate(-50%, -50%) scale(1.05);
-    background: rgba(125, 155, 147, 1);
+::-moz-selection {
+    background-color: var(--color-sage);
+    color: white;
 }

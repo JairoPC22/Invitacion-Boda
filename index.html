@@ -2,21 +2,31 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="description" content="Invitación de boda de Jairo & Ceany - 23 de Mayo, 2026 en Rancho 3 Hermanos, Puebla">
+    <meta name="theme-color" content="#7d9b93">
     <title>Jairo & Ceany - Nuestra Boda</title>
+    
+    <!-- Estilos -->
     <link rel="stylesheet" href="styles.css">
+    
+    <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Great+Vibes&family=Cormorant+Garamond:wght@300;400;500;600&family=Allura&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Cormorant+Garamond:wght@300;400;500;600&family=Allura&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <!-- Reproductor de música oculto -->
     <div id="youtube-player"></div>
-    <!-- Flores decorativas fijas -->
+    
+    <!-- Flores decorativas -->
     <div class="floral-decoration floral-top-right"></div>
     <div class="floral-decoration floral-bottom-left"></div>
 
-    <!-- Sección Hero -->
+    <!-- Hero -->
     <section class="hero">
         <div class="container">
             <div class="names-section">
@@ -50,7 +60,7 @@
         </div>
     </section>
 
-    <!-- Sección Foto de los Novios con Efecto Degradado Elegante -->
+    <!-- Foto -->
     <section class="photo-section">
         <div class="photo-container-elegant">
             <div class="photo-wrapper-fade">
@@ -65,10 +75,10 @@
             <p class="invitation-text">
                 <i class="fas fa-envelope-open-text invitation-icon"></i><br>
                 Nos gustaría invitarte<br>
-                <span id="guestName" class="highlight-name">Familia García</span><br>
+                <span id="guestName" class="highlight-name">Querido Invitado</span><br>
                 a nuestra boda
             </p>
-            <p class="guest-count" id="guestCount"><i class="fas fa-ticket-alt"></i> Pase para 4 personas</p>
+            <p class="guest-count" id="guestCount" style="display: none;"><i class="fas fa-ticket-alt"></i></p>
         </div>
     </section>
 
@@ -298,14 +308,14 @@
             <h2 class="confirmation-title"><i class="fas fa-envelope"></i> Confirma tu Asistencia</h2>
             <p class="confirmation-deadline"><i class="far fa-calendar-check"></i> Antes del 28 de Febrero de 2026</p>
             <div class="contact-buttons">
-                <a href="#" id="btnNovio" class="btn-whatsapp" onclick="contactNovio(event)">
+                <a href="#" class="btn-whatsapp" onclick="contactNovio(event)">
                     <i class="fab fa-whatsapp"></i>
                     <div class="btn-content">
                         <span class="btn-label">Contactar al Novio</span>
                         <span class="btn-phone"><i class="fas fa-phone"></i> 231 110 1451</span>
                     </div>
                 </a>
-                <a href="#" id="btnNovia" class="btn-whatsapp" onclick="contactNovia(event)">
+                <a href="#" class="btn-whatsapp" onclick="contactNovia(event)">
                     <i class="fab fa-whatsapp"></i>
                     <div class="btn-content">
                         <span class="btn-label">Contactar a la Novia</span>
@@ -324,7 +334,7 @@
             </div>
             <p class="footer-text">
                 Esperamos contar con su presencia.<br>
-                <i> Muchas gracias</i>
+                Muchas gracias
             </p>
             <div class="footer-initials">J & C</div>
             <p class="footer-date"><i class="far fa-calendar"></i> 23 de Mayo, 2026</p>
