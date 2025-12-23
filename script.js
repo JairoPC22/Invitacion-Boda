@@ -3,7 +3,7 @@ const weddingDate = new Date('2026-05-23T12:30:00').getTime();
 const PHONE_NOVIO = '522311101451';
 const PHONE_NOVIA = '522321765311';
 
-// Variables globales para la invitación
+// Variables globales
 let guestName = 'Querido Invitado';
 let guestCount = '';
 
@@ -39,24 +39,21 @@ function updateCountdown() {
     if (secondsEl) secondsEl.textContent = seconds;
 }
 
-// ===== PERSONALIZACIÓN DE INVITACIÓN =====
+// ===== PERSONALIZACIÓN =====
 function loadInvitationData() {
     try {
         const urlParams = new URLSearchParams(window.location.search);
         
-        // Obtener nombre del invitado
         const invitado = urlParams.get('invitado') || urlParams.get('familia');
         if (invitado) {
             guestName = decodeURIComponent(invitado);
         }
         
-        // Obtener número de personas
         const personas = urlParams.get('personas') || urlParams.get('pases');
         if (personas) {
             guestCount = `Pase para ${personas} persona${personas > 1 ? 's' : ''}`;
         }
         
-        // Actualizar el DOM
         const guestNameEl = document.getElementById('guestName');
         const guestCountEl = document.getElementById('guestCount');
         
@@ -70,12 +67,12 @@ function loadInvitationData() {
         } else if (guestCountEl) {
             guestCountEl.style.display = 'none';
         }
-        
     } catch (error) {
+        // Error silencioso
     }
 }
 
-// ===== CONTACTO POR WHATSAPP CON MENSAJES ELEGANTES =====
+// ===== CONTACTO POR WHATSAPP =====
 function contactNovio(event) {
     event.preventDefault();
     
@@ -122,20 +119,11 @@ Nos vemos pronto`;
     window.open(url, '_blank');
 }
 
-// ===== CAMBIAR FOTO DE LOS NOVIOS =====
-function changeCouplePhoto(imageUrl) {
-    const photoElement = document.getElementById('couplePhoto');
-    if (photoElement && imageUrl) {
-        photoElement.src = imageUrl;
-        photoElement.alt = 'Jairo y Ceany - Nuestra Historia de Amor';
-    }
-}
-
-// ===== ANIMACIONES MEJORADAS =====
+// ===== ANIMACIONES =====
 function initScrollAnimations() {
     const observerOptions = {
-        threshold: 0.15,
-        rootMargin: '0px 0px -100px 0px'
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
     };
 
     const observer = new IntersectionObserver((entries) => {
@@ -150,8 +138,8 @@ function initScrollAnimations() {
     const sections = document.querySelectorAll('section:not(.hero)');
     sections.forEach(section => {
         section.style.opacity = '0';
-        section.style.transform = 'translateY(70px)';
-        section.style.transition = 'opacity 1.6s cubic-bezier(0.4, 0, 0.2, 1), transform 1.6s cubic-bezier(0.4, 0, 0.2, 1)';
+        section.style.transform = 'translateY(50px)';
+        section.style.transition = 'opacity 1.2s ease, transform 1.2s ease';
         observer.observe(section);
     });
 }
@@ -165,37 +153,19 @@ function initTimelineAnimations() {
                 setTimeout(() => {
                     entry.target.style.opacity = '1';
                     entry.target.style.transform = 'translateX(0)';
-                }, index * 350);
+                }, index * 200);
             }
         });
-    }, { threshold: 0.3 });
+    }, { threshold: 0.2 });
 
     timelineItems.forEach(item => {
         item.style.opacity = '0';
-        item.style.transform = 'translateX(-60px)';
-        item.style.transition = 'opacity 1s cubic-bezier(0.4, 0, 0.2, 1), transform 1s cubic-bezier(0.4, 0, 0.2, 1)';
+        item.style.transform = 'translateX(-30px)';
+        item.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
         observer.observe(item);
     });
 }
 
-function initSmoothScroll() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-            
-            if (targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
-}
-
-// ===== ANIMACIÓN DE ENTRADA DE CARDS =====
 function initCardAnimations() {
     const cards = document.querySelectorAll('.detail-item, .hotel-item, .gift-card, .dress-code-card');
     
@@ -205,20 +175,19 @@ function initCardAnimations() {
                 setTimeout(() => {
                     entry.target.style.opacity = '1';
                     entry.target.style.transform = 'translateY(0)';
-                }, index * 180);
+                }, index * 150);
             }
         });
-    }, { threshold: 0.2 });
+    }, { threshold: 0.15 });
 
     cards.forEach(card => {
         card.style.opacity = '0';
-        card.style.transform = 'translateY(50px)';
-        card.style.transition = 'opacity 1s ease, transform 1s ease';
+        card.style.transform = 'translateY(30px)';
+        card.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
         observer.observe(card);
     });
 }
 
-// ===== EFECTO FADE FLORES AL HACER SCROLL =====
 function initFloralFadeEffect() {
     const floralTop = document.querySelector('.floral-top-right');
     const floralBottom = document.querySelector('.floral-bottom-left');
@@ -233,14 +202,11 @@ function initFloralFadeEffect() {
                 const documentHeight = document.documentElement.scrollHeight;
                 const scrollProgress = scrolled + windowHeight;
                 
-                // Ambas flores: visibles solo arriba (primeros 300px) o abajo (últimos 300px del footer)
                 if (floralTop && floralBottom) {
-                    if (scrolled < 300 || scrollProgress > documentHeight - 300) {
-                        // Mostrar flores cuando estamos arriba o en el footer
+                    if (scrolled < 200 || scrollProgress > documentHeight - 200) {
                         floralTop.classList.remove('hidden');
                         floralBottom.classList.remove('hidden');
                     } else {
-                        // Ocultar flores en el medio
                         floralTop.classList.add('hidden');
                         floralBottom.classList.add('hidden');
                     }
@@ -254,7 +220,6 @@ function initFloralFadeEffect() {
     });
 }
 
-// ===== ANIMACIÓN DE FOTO AL APARECER =====
 function initPhotoAnimation() {
     const photoWrapper = document.querySelector('.photo-wrapper-fade');
     
@@ -266,16 +231,17 @@ function initPhotoAnimation() {
                     photoWrapper.style.transform = 'scale(1)';
                 }
             });
-        }, { threshold: 0.3 });
+        }, { threshold: 0.2 });
         
         photoWrapper.style.opacity = '0';
         photoWrapper.style.transform = 'scale(0.95)';
-        photoWrapper.style.transition = 'opacity 1.4s ease, transform 1.4s ease';
+        photoWrapper.style.transition = 'opacity 1s ease, transform 1s ease';
         
         observer.observe(photoWrapper);
     }
 }
-// ===== MÚSICA DE FONDO =====
+
+// ===== MÚSICA DE FONDO - OPTIMIZADO PARA MÓVILES =====
 let player;
 let playerReady = false;
 let musicStarted = false;
@@ -285,6 +251,43 @@ function initBackgroundMusic() {
     tag.src = 'https://www.youtube.com/iframe_api';
     const firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    
+    // Mostrar indicador para móviles después de 2 segundos
+    setTimeout(() => {
+        if (!musicStarted) {
+            showMusicHint();
+        }
+    }, 2000);
+}
+
+// Mostrar hint sutil para activar música
+function showMusicHint() {
+    const hint = document.createElement('div');
+    hint.id = 'music-hint';
+    hint.innerHTML = `
+        <div class="music-hint-content">
+            <i class="fas fa-hand-pointer"></i>
+            <span>Toca para escuchar música</span>
+        </div>
+    `;
+    document.body.appendChild(hint);
+    
+    // Animar entrada
+    setTimeout(() => {
+        hint.style.opacity = '1';
+        hint.style.transform = 'translateY(0)';
+    }, 100);
+    
+    // Ocultar después de 4 segundos
+    setTimeout(() => {
+        hint.style.opacity = '0';
+        hint.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+            if (hint.parentNode) {
+                hint.remove();
+            }
+        }, 500);
+    }, 4000);
 }
 
 window.onYouTubeIframeAPIReady = function() {
@@ -312,19 +315,45 @@ function onPlayerReady(event) {
     playerReady = true;
     event.target.setVolume(40);
     
-    
-    // Activar música con el PRIMER clic en CUALQUIER parte
-    document.addEventListener('click', function startMusicOnce(e) {
-        // No activar si es el botón de música (para no duplicar)
-        if (e.target.closest('#music-control')) return;
+    // MÚLTIPLES EVENTOS PARA CAPTURAR INTERACCIÓN EN MÓVIL
+    const startMusic = (e) => {
+        // No activar si es el botón de música
+        if (e.target && e.target.closest('#music-control')) return;
         
         if (playerReady && player && !musicStarted) {
             player.playVideo();
             musicStarted = true;
-            // Remover listener
-            document.removeEventListener('click', startMusicOnce);
+            
+            // Remover hint si existe
+            const hint = document.getElementById('music-hint');
+            if (hint) {
+                hint.style.opacity = '0';
+                setTimeout(() => hint.remove(), 300);
+            }
+            
+            // Remover todos los listeners
+            document.removeEventListener('touchstart', startMusic);
+            document.removeEventListener('touchend', startMusic);
+            document.removeEventListener('click', startMusic);
+            window.removeEventListener('scroll', startMusic);
         }
-    }, true); // true = capture phase, se ejecuta antes que otros handlers
+    };
+    
+    // AGREGAR MÚLTIPLES LISTENERS PARA MÓVIL
+    document.addEventListener('touchstart', startMusic, { passive: true });
+    document.addEventListener('touchend', startMusic, { passive: true });
+    document.addEventListener('click', startMusic);
+    
+    // También con scroll (aunque menos efectivo en móvil)
+    let scrollTimeout;
+    window.addEventListener('scroll', () => {
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+            if (!musicStarted) {
+                startMusic({ target: document.body });
+            }
+        }, 100);
+    }, { passive: true });
     
     createMusicControl();
 }
@@ -370,84 +399,47 @@ function createMusicControl() {
             }
         }
     });
+    
+    // También con touch para móvil
+    toggleBtn.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        toggleBtn.click();
+    });
 }
+
 // ===== INICIALIZACIÓN =====
 document.addEventListener('DOMContentLoaded', function() {
-    // Cargar datos de invitación
     loadInvitationData();
     
-    // Iniciar contador
     updateCountdown();
     setInterval(updateCountdown, 1000);
     
-    // Inicializar animaciones
     initScrollAnimations();
     initTimelineAnimations();
     initCardAnimations();
-    initSmoothScroll();
     initFloralFadeEffect();
     initPhotoAnimation();
     initBackgroundMusic();
-
     
-    // Efecto fade-in inicial más suave
     document.body.style.opacity = '0';
     setTimeout(() => {
-        document.body.style.transition = 'opacity 2s ease';
+        document.body.style.transition = 'opacity 1.5s ease';
         document.body.style.opacity = '1';
-    }, 250);
+    }, 200);
     
-    // Lazy loading de imágenes
     const images = document.querySelectorAll('img');
     images.forEach(img => {
         img.loading = 'lazy';
     });
-    
-    // Precarga de fuentes
-    if ('fonts' in document) {
-        Promise.all([
-            document.fonts.load('1em Playfair Display'),
-            document.fonts.load('1em Allura'),
-            document.fonts.load('1em Cormorant Garamond'),
-            document.fonts.load('1em Cinzel')
-        ]).then(() => {
-        });
-    }
 });
 
-// ===== PREVENIR ERRORES =====
 window.addEventListener('error', function(e) {
     if (e.message && e.message.includes('script')) {
         e.preventDefault();
     }
 });
 
-// ===== OPTIMIZACIÓN DE RENDIMIENTO =====
-// Debounce para resize events
-let resizeTimer;
-window.addEventListener('resize', () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => {
-        // Recalcular elementos si es necesario
-    }, 250);
-});
-
-// ===== FUNCIONES AUXILIARES =====
-// Función para compartir invitación (opcional)
-function shareInvitation() {
-    if (navigator.share) {
-        navigator.share({
-            title: 'Invitación Boda - Jairo & Ceany',
-            text: 'Estás invitado a nuestra boda! 23 de Mayo, 2026',
-            url: window.location.href
-        }).then(() => {
-        }).catch((error) => {
-        });
-    }
-}
-
-// Exportar funciones para uso global
-window.changeCouplePhoto = changeCouplePhoto;
+// Exportar funciones
 window.contactNovio = contactNovio;
 window.contactNovia = contactNovia;
-window.shareInvitation = shareInvitation;

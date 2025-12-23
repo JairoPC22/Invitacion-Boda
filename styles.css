@@ -1663,3 +1663,54 @@ html {
     background-color: var(--color-sage);
     color: white;
 }
+/* Hint de música para móviles */
+#music-hint {
+    position: fixed;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    z-index: 9998;
+    background: rgba(125, 155, 147, 0.95);
+    padding: 15px 30px;
+    border-radius: 30px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    opacity: 0;
+    transition: all 0.5s ease;
+    pointer-events: none;
+}
+
+.music-hint-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: white;
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    white-space: nowrap;
+}
+
+.music-hint-content i {
+    font-size: 1.5rem;
+    animation: bounce 1s ease-in-out infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+@media (max-width: 768px) {
+    #music-hint {
+        top: 60px;
+        padding: 12px 25px;
+    }
+    
+    .music-hint-content {
+        font-size: 1rem;
+        gap: 10px;
+    }
+    
+    .music-hint-content i {
+        font-size: 1.3rem;
+    }
+}
