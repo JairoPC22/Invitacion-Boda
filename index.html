@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jairo & Ceany - Nuestra Boda</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Great+Vibes&family=Cormorant+Garamond:wght@300;400;500;600&family=Allura&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div id="youtube-player"></div>
+    <!-- Flores decorativas fijas -->
+    <div class="floral-decoration floral-top-right"></div>
+    <div class="floral-decoration floral-bottom-left"></div>
+
+    <!-- Sección Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="names-section">
+                <h1 class="name-first">JAIRO</h1>
+                <div class="ampersand">&</div>
+                <h1 class="name-second">CEANY</h1>
+            </div>
+            
+            <p class="invitation-intro">Te invitamos a compartir este día<br>tan importante con nosotros</p>
+            
+            <h2 class="our-wedding">Nuestra Boda</h2>
+            
+            <div class="event-details">
+                <p class="reception-time"><i class="fas fa-glass-cheers"></i> Recepción 12:30 P.M.</p>
+                <p class="event-date">Sábado | 23 de Mayo | 2026</p>
+            </div>
+            
+            <div class="venue-info">
+                <p class="venue-name"><i class="fas fa-map-marker-alt"></i> "Rancho 3 Hermanos"</p>
+                <p class="venue-address">Carretera federal Atempan, Puebla</p>
+            </div>
+            
+            <div class="bible-verse">
+                <p class="verse-text">
+                    "Además, uno que anda solo puede ser vencido,<br>
+                    pero dos juntos pueden hacerle frente al agresor.<br>
+                    Y una cuerda triple no se rompe fácilmente".
+                </p>
+                <p class="verse-ref"><i class="fas fa-book-heart"></i> Eclesiastés 4:12</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Foto de los Novios con Efecto Degradado Elegante -->
+    <section class="photo-section">
+        <div class="photo-container-elegant">
+            <div class="photo-wrapper-fade">
+                <img id="couplePhoto" src="mano anillo.jpeg" alt="Jairo y Ceany">
+            </div>
+        </div>
+    </section>
+
+    <!-- Invitación Personalizada -->
+    <section class="invitation-personal">
+        <div class="container">
+            <p class="invitation-text">
+                <i class="fas fa-envelope-open-text invitation-icon"></i><br>
+                Nos gustaría invitarte<br>
+                <span id="guestName" class="highlight-name">Familia García</span><br>
+                a nuestra boda
+            </p>
+            <p class="guest-count" id="guestCount"><i class="fas fa-ticket-alt"></i> Pase para 4 personas</p>
+        </div>
+    </section>
+
+    <!-- Fecha y Countdown -->
+    <section class="date-section">
+        <div class="container">
+            <div class="date-display">
+                <div class="day-label">Sábado</div>
+                <div class="date-number">23</div>
+                <div class="month-year">de Mayo de 2026</div>
+            </div>
+            <div class="countdown-wrapper">
+                <p class="countdown-title"><i class="far fa-clock"></i> Faltan</p>
+                <div class="countdown" id="countdown">
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="days">0</span>
+                        <span class="countdown-label">Días</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="hours">0</span>
+                        <span class="countdown-label">Horas</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="minutes">0</span>
+                        <span class="countdown-label">Minutos</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="seconds">0</span>
+                        <span class="countdown-label">Segundos</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ubicación -->
+    <section class="location">
+        <div class="container">
+            <div class="location-icon">
+                <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <h3 class="location-title">Ubicación</h3>
+            <h4 class="location-venue">"Rancho 3 Hermanos"</h4>
+            <p class="location-address"><i class="fas fa-map-pin"></i> Carretera federal Atempan, Puebla</p>
+            <p class="location-time"><i class="far fa-clock"></i> 12:30 P.M.</p>
+            <button class="btn-location" onclick="window.open('https://maps.app.goo.gl/A9dVFm2NHASdyCXF6', '_blank')">
+                <i class="fas fa-map-marked-alt"></i>
+                Ver Ubicación en Mapa
+            </button>
+        </div>
+    </section>
+
+    <!-- Itinerario -->
+    <section class="timeline">
+        <div class="container">
+            <h2 class="section-title"><i class="far fa-calendar-alt"></i> Itinerario</h2>
+            <div class="timeline-container">
+                <div class="timeline-line"></div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h4 class="timeline-time">12:30 P.M.</h4>
+                        <p class="timeline-event">Discurso</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-champagne-glasses"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h4 class="timeline-time">1:15 P.M.</h4>
+                        <p class="timeline-event">Recepción</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-camera-retro"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h4 class="timeline-time">1:30 P.M.</h4>
+                        <p class="timeline-event">Fotos con los Novios</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h4 class="timeline-time">2:20 P.M.</h4>
+                        <p class="timeline-event">Banquete</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h4 class="timeline-time">3:40 P.M.</h4>
+                        <p class="timeline-event">Fiesta</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Código de Vestimenta -->
+    <section class="dress-code">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-tshirt"></i> Código de Vestimenta</h2>
+            <div class="dress-code-card">
+                <div class="dress-card-header">
+                    <h3 class="dress-title">CÓDIGO DE VESTIMENTA</h3>
+                </div>
+                <h4 class="dress-type">Semi Formal</h4>
+                <div class="dress-icons">
+                    <div class="dress-icon-item">
+                        <i class="fas fa-user-tie dress-icon"></i>
+                    </div>
+                    <div class="dress-icon-item">
+                        <i class="fas fa-female dress-icon"></i>
+                    </div>
+                </div>
+                <p class="dress-description">
+                    Con mucho cariño les pedimos evitar<br>
+                    prendas en color <strong>blanco y beige</strong>.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sugerencias de Regalo -->
+    <section class="gifts">
+        <div class="container">
+            <h2 class="gifts-title"><i class="fas fa-gift"></i> Sugerencias de Regalo</h2>
+            <div class="gift-card">
+                <div class="gift-icon-large">
+                    <i class="fas fa-gifts"></i>
+                </div>
+                <p class="gift-text">
+                    El mejor regalo es tu presencia, pero si<br>
+                    deseas tener un detalle con nosotros,<br>
+                    les dejamos estas opciones:
+                </p>
+                <p class="gift-subtitle"><i class="fas fa-envelope"></i> LLUVIA DE SOBRES</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detalles Importantes -->
+    <section class="important-details">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-info-circle"></i> Detalles Importantes</h2>
+            <div class="details-grid">
+                <div class="detail-item">
+                    <div class="detail-icon">
+                        <i class="fas fa-champagne-glasses"></i>
+                    </div>
+                    <h3 class="detail-title">Recepción</h3>
+                    <p class="detail-text">La recepción será en jardín. Recomendamos calzado cómodo para disfrutar mejor.</p>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3 class="detail-title">Menú</h3>
+                    <p class="detail-text">Habrá opciones de comida para todos. Si tienes alguna restricción alimenticia, háznoslo saber.</p>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-icon">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <h3 class="detail-title">Música</h3>
+                    <p class="detail-text">¡Prepárate para bailar! Habrá música en vivo y DJ para que disfrutes toda la noche.</p>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-icon">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <h3 class="detail-title">Fotografías</h3>
+                    <p class="detail-text">Contaremos con fotógrafo profesional para capturar cada momento especial.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Información de Hospedaje -->
+    <section class="accommodation">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-hotel"></i> ¿Vienes de fuera?</h2>
+            <div class="accommodation-content">
+                <p class="accommodation-text">
+                    Si necesitas hospedaje, te recomendamos algunos hoteles cercanos al lugar del evento:
+                </p>
+                <div class="hotel-list">
+                    <div class="hotel-item">
+                        <div class="hotel-icon">
+                            <i class="fas fa-bed"></i>
+                        </div>
+                        <h4>Hotel Cerca del Evento</h4>
+                        <p><i class="fas fa-location-dot"></i> A 10 minutos del Rancho 3 Hermanos</p>
+                    </div>
+                    <div class="hotel-item">
+                        <div class="hotel-icon">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <h4>Opciones en Puebla Centro</h4>
+                        <p><i class="fas fa-location-dot"></i> A 30 minutos del evento</p>
+                    </div>
+                </div>
+                <p class="accommodation-note">
+                    <i class="fas fa-comment-dots"></i> Si necesitas ayuda con reservaciones, no dudes en contactarnos.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Confirmación -->
+    <section class="confirmation">
+        <div class="container">
+            <h2 class="confirmation-title"><i class="fas fa-envelope"></i> Confirma tu Asistencia</h2>
+            <p class="confirmation-deadline"><i class="far fa-calendar-check"></i> Antes del 28 de Febrero de 2026</p>
+            <div class="contact-buttons">
+                <a href="#" id="btnNovio" class="btn-whatsapp" onclick="contactNovio(event)">
+                    <i class="fab fa-whatsapp"></i>
+                    <div class="btn-content">
+                        <span class="btn-label">Contactar al Novio</span>
+                        <span class="btn-phone"><i class="fas fa-phone"></i> 231 110 1451</span>
+                    </div>
+                </a>
+                <a href="#" id="btnNovia" class="btn-whatsapp" onclick="contactNovia(event)">
+                    <i class="fab fa-whatsapp"></i>
+                    <div class="btn-content">
+                        <span class="btn-label">Contactar a la Novia</span>
+                        <span class="btn-phone"><i class="fas fa-phone"></i> 232 176 5311</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <section class="footer">
+        <div class="container">
+            <div class="floral-footer">
+                <i class="fas fa-heart footer-heart"></i>
+            </div>
+            <p class="footer-text">
+                Esperamos contar con su presencia.<br>
+                <i> Muchas gracias</i>
+            </p>
+            <div class="footer-initials">J & C</div>
+            <p class="footer-date"><i class="far fa-calendar"></i> 23 de Mayo, 2026</p>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
