@@ -241,10 +241,11 @@ function initPhotoAnimation() {
     }
 }
 
-// ===== MÚSICA DE FONDO - SCROLL TÁCTIL =====
+// ===== MÚSICA DE FONDO - MEJORADO =====
 let player;
 let playerReady = false;
 let musicStarted = false;
+let musicButton = null;
 
 function initBackgroundMusic() {
     const tag = document.createElement('script');
@@ -274,45 +275,55 @@ window.onYouTubeIframeAPIReady = function() {
     });
 };
 
+function updateMusicButton(isPlaying) {
+    if (!musicButton) return;
+    
+    if (isPlaying) {
+        musicButton.innerHTML = '<i class="fas fa-music"></i>';
+        musicButton.classList.remove('paused');
+    } else {
+        musicButton.innerHTML = '<i class="fas fa-volume-mute"></i>';
+        musicButton.classList.add('paused');
+    }
+}
+
+function tryStartMusic() {
+    if (!playerReady || !player || musicStarted) return;
+    
+    try {
+        player.playVideo();
+        musicStarted = true;
+        updateMusicButton(true);
+    } catch (e) {
+        // Error silencioso
+    }
+}
+
 function onPlayerReady(event) {
     playerReady = true;
     event.target.setVolume(40);
     
-    // Activar con scroll (desktop y móvil)
-    let scrollActivated = false;
-    const activateOnScroll = () => {
-        if (!scrollActivated && playerReady && player && !musicStarted) {
-            scrollActivated = true;
-            player.playVideo();
-            musicStarted = true;
-        }
-    };
-    
-    // Scroll normal (desktop)
-    window.addEventListener('scroll', activateOnScroll, { passive: true, once: true });
-    
-    // Touch move (scroll táctil en móvil)
-    window.addEventListener('touchmove', activateOnScroll, { passive: true, once: true });
-    
-    // Click como respaldo
-    document.addEventListener('click', function clickActivate(e) {
-        if (e.target && e.target.closest('#music-control')) return;
-        if (!musicStarted && playerReady && player) {
-            player.playVideo();
-            musicStarted = true;
-            document.removeEventListener('click', clickActivate);
-        }
-    }, { once: true });
-    
     createMusicControl();
+    
+    // Múltiples activadores para iniciar la música
+    window.addEventListener('scroll', tryStartMusic, { passive: true, once: true });
+    window.addEventListener('touchstart', tryStartMusic, { passive: true, once: true });
+    window.addEventListener('touchmove', tryStartMusic, { passive: true, once: true });
+    window.addEventListener('mousemove', tryStartMusic, { passive: true, once: true });
+    
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.closest('#music-control')) return;
+        tryStartMusic();
+    }, { once: true, passive: true });
 }
 
 function onPlayerStateChange(event) {
-    if (event.data === YT.PlayerState.PLAYING && !musicStarted) {
+    if (event.data === YT.PlayerState.PLAYING) {
         musicStarted = true;
-    }
-    
-    if (event.data === YT.PlayerState.ENDED) {
+        updateMusicButton(true);
+    } else if (event.data === YT.PlayerState.PAUSED) {
+        updateMusicButton(false);
+    } else if (event.data === YT.PlayerState.ENDED) {
         player.playVideo();
     }
 }
@@ -321,38 +332,41 @@ function createMusicControl() {
     const musicControl = document.createElement('div');
     musicControl.id = 'music-control';
     musicControl.innerHTML = `
-        <button id="toggle-music" class="music-button" title="Pausar/Reproducir música">
-            <i class="fas fa-music"></i>
+        <button id="toggle-music" class="music-button paused" title="Reproducir música">
+            <i class="fas fa-volume-mute"></i>
         </button>
     `;
     document.body.appendChild(musicControl);
     
-    const toggleBtn = document.getElementById('toggle-music');
-    let isPlaying = true;
+    musicButton = document.getElementById('toggle-music');
     
     const toggleMusic = (e) => {
         e.preventDefault();
         e.stopPropagation();
         
-        if (playerReady && player) {
-            if (isPlaying) {
+        if (!playerReady || !player) return;
+        
+        try {
+            const state = player.getPlayerState();
+            
+            if (state === YT.PlayerState.PLAYING) {
                 player.pauseVideo();
-                toggleBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
-                toggleBtn.classList.add('paused');
-                isPlaying = false;
+                updateMusicButton(false);
             } else {
                 player.playVideo();
-                toggleBtn.innerHTML = '<i class="fas fa-music"></i>';
-                toggleBtn.classList.remove('paused');
-                isPlaying = true;
                 musicStarted = true;
+                updateMusicButton(true);
             }
+        } catch (e) {
+            // Error silencioso
         }
     };
     
-    // Click y touch para el botón
-    toggleBtn.addEventListener('click', toggleMusic);
-    toggleBtn.addEventListener('touchend', toggleMusic);
+    musicButton.addEventListener('click', toggleMusic);
+    musicButton.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        toggleMusic(e);
+    });
 }
 
 // ===== INICIALIZACIÓN =====
