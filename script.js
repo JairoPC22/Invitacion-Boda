@@ -68,11 +68,11 @@ function loadInvitationData() {
             guestCountEl.style.display = 'none';
         }
     } catch (error) {
-        // Error silencioso
+        // Silencioso
     }
 }
 
-// ===== CONTACTO POR WHATSAPP =====
+// ===== CONTACTO WHATSAPP =====
 function contactNovio(event) {
     event.preventDefault();
     
@@ -241,7 +241,7 @@ function initPhotoAnimation() {
     }
 }
 
-// ===== MÚSICA DE FONDO - OPTIMIZADO PARA MÓVILES =====
+// ===== MÚSICA DE FONDO - SCROLL TÁCTIL =====
 let player;
 let playerReady = false;
 let musicStarted = false;
@@ -251,43 +251,6 @@ function initBackgroundMusic() {
     tag.src = 'https://www.youtube.com/iframe_api';
     const firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-    
-    // Mostrar indicador para móviles después de 2 segundos
-    setTimeout(() => {
-        if (!musicStarted) {
-            showMusicHint();
-        }
-    }, 2000);
-}
-
-// Mostrar hint sutil para activar música
-function showMusicHint() {
-    const hint = document.createElement('div');
-    hint.id = 'music-hint';
-    hint.innerHTML = `
-        <div class="music-hint-content">
-            <i class="fas fa-hand-pointer"></i>
-            <span>Toca para escuchar música</span>
-        </div>
-    `;
-    document.body.appendChild(hint);
-    
-    // Animar entrada
-    setTimeout(() => {
-        hint.style.opacity = '1';
-        hint.style.transform = 'translateY(0)';
-    }, 100);
-    
-    // Ocultar después de 4 segundos
-    setTimeout(() => {
-        hint.style.opacity = '0';
-        hint.style.transform = 'translateY(20px)';
-        setTimeout(() => {
-            if (hint.parentNode) {
-                hint.remove();
-            }
-        }, 500);
-    }, 4000);
 }
 
 window.onYouTubeIframeAPIReady = function() {
@@ -315,45 +278,31 @@ function onPlayerReady(event) {
     playerReady = true;
     event.target.setVolume(40);
     
-    // MÚLTIPLES EVENTOS PARA CAPTURAR INTERACCIÓN EN MÓVIL
-    const startMusic = (e) => {
-        // No activar si es el botón de música
-        if (e.target && e.target.closest('#music-control')) return;
-        
-        if (playerReady && player && !musicStarted) {
+    // Activar con scroll (desktop y móvil)
+    let scrollActivated = false;
+    const activateOnScroll = () => {
+        if (!scrollActivated && playerReady && player && !musicStarted) {
+            scrollActivated = true;
             player.playVideo();
             musicStarted = true;
-            
-            // Remover hint si existe
-            const hint = document.getElementById('music-hint');
-            if (hint) {
-                hint.style.opacity = '0';
-                setTimeout(() => hint.remove(), 300);
-            }
-            
-            // Remover todos los listeners
-            document.removeEventListener('touchstart', startMusic);
-            document.removeEventListener('touchend', startMusic);
-            document.removeEventListener('click', startMusic);
-            window.removeEventListener('scroll', startMusic);
         }
     };
     
-    // AGREGAR MÚLTIPLES LISTENERS PARA MÓVIL
-    document.addEventListener('touchstart', startMusic, { passive: true });
-    document.addEventListener('touchend', startMusic, { passive: true });
-    document.addEventListener('click', startMusic);
+    // Scroll normal (desktop)
+    window.addEventListener('scroll', activateOnScroll, { passive: true, once: true });
     
-    // También con scroll (aunque menos efectivo en móvil)
-    let scrollTimeout;
-    window.addEventListener('scroll', () => {
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(() => {
-            if (!musicStarted) {
-                startMusic({ target: document.body });
-            }
-        }, 100);
-    }, { passive: true });
+    // Touch move (scroll táctil en móvil)
+    window.addEventListener('touchmove', activateOnScroll, { passive: true, once: true });
+    
+    // Click como respaldo
+    document.addEventListener('click', function clickActivate(e) {
+        if (e.target && e.target.closest('#music-control')) return;
+        if (!musicStarted && playerReady && player) {
+            player.playVideo();
+            musicStarted = true;
+            document.removeEventListener('click', clickActivate);
+        }
+    }, { once: true });
     
     createMusicControl();
 }
@@ -381,7 +330,8 @@ function createMusicControl() {
     const toggleBtn = document.getElementById('toggle-music');
     let isPlaying = true;
     
-    toggleBtn.addEventListener('click', (e) => {
+    const toggleMusic = (e) => {
+        e.preventDefault();
         e.stopPropagation();
         
         if (playerReady && player) {
@@ -398,14 +348,11 @@ function createMusicControl() {
                 musicStarted = true;
             }
         }
-    });
+    };
     
-    // También con touch para móvil
-    toggleBtn.addEventListener('touchend', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        toggleBtn.click();
-    });
+    // Click y touch para el botón
+    toggleBtn.addEventListener('click', toggleMusic);
+    toggleBtn.addEventListener('touchend', toggleMusic);
 }
 
 // ===== INICIALIZACIÓN =====
