@@ -12,6 +12,7 @@ let player;
 let playerReady = false;
 let musicStarted = false;
 let musicButton = null;
+let apiReady = false;
 
 // ===== CONTADOR REGRESIVO =====
 function updateCountdown() {
@@ -247,15 +248,33 @@ function initPhotoAnimation() {
     }
 }
 
-// ===== MÚSICA =====
-function initBackgroundMusic() {
-    const tag = document.createElement('script');
-    tag.src = 'https://www.youtube.com/iframe_api';
-    const firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+/* ===== MÚSICA =====
+Nota: Añade esto al CSS para ocultar el overlay inicialmente:
+
+#music-overlay {
+    display: none;  <-- Añadir esta línea en el CSS
+    opacity: 0;     <-- Añadir esta línea en el CSS
 }
 
+El JavaScript lo mostrará cuando el player esté listo.
+*/
+
+function initBackgroundMusic() {
+    // Cargar API de YouTube
+    if (!window.YT) {
+        const tag = document.createElement('script');
+        tag.src = 'https://www.youtube.com/iframe_api';
+        const firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    }
+}
+
+// Función que YouTube llama cuando la API está lista
 window.onYouTubeIframeAPIReady = function() {
+    apiReady = true;
+    console.log('YouTube API ready');
+    
+    // Crear el reproductor
     player = new YT.Player('youtube-player', {
         height: '0',
         width: '0',
@@ -276,6 +295,29 @@ window.onYouTubeIframeAPIReady = function() {
     });
 };
 
+function onPlayerReady(event) {
+    playerReady = true;
+    console.log('Player ready');
+    event.target.setVolume(40);
+    createMusicControl();
+    
+    // MOSTRAR EL OVERLAY AHORA QUE TODO ESTÁ LISTO
+    showMusicOverlay();
+}
+
+function onPlayerStateChange(event) {
+    if (event.data === YT.PlayerState.PLAYING) {
+        musicStarted = true;
+        updateMusicButton(true);
+        console.log('Music playing');
+    } else if (event.data === YT.PlayerState.PAUSED) {
+        updateMusicButton(false);
+        console.log('Music paused');
+    } else if (event.data === YT.PlayerState.ENDED) {
+        player.playVideo();
+    }
+}
+
 function updateMusicButton(isPlaying) {
     if (!musicButton) return;
     
@@ -285,23 +327,6 @@ function updateMusicButton(isPlaying) {
     } else {
         musicButton.innerHTML = '<i class="fas fa-volume-mute"></i>';
         musicButton.classList.add('paused');
-    }
-}
-
-function onPlayerReady(event) {
-    playerReady = true;
-    event.target.setVolume(40);
-    createMusicControl();
-}
-
-function onPlayerStateChange(event) {
-    if (event.data === YT.PlayerState.PLAYING) {
-        musicStarted = true;
-        updateMusicButton(true);
-    } else if (event.data === YT.PlayerState.PAUSED) {
-        updateMusicButton(false);
-    } else if (event.data === YT.PlayerState.ENDED) {
-        player.playVideo();
     }
 }
 
@@ -321,11 +346,14 @@ function createMusicControl() {
         e.preventDefault();
         e.stopPropagation();
         
-        if (!playerReady || !player) return;
+        if (!playerReady || !player) {
+            console.log('Player not ready yet');
+            return;
+        }
         
         const state = player.getPlayerState();
         
-        if (state === 1) {
+        if (state === YT.PlayerState.PLAYING) {
             player.pauseVideo();
             updateMusicButton(false);
         } else {
@@ -349,13 +377,21 @@ function initMusicOverlay() {
     
     if (!overlay || !openButton) return;
     
+    // Mantener el overlay oculto hasta que el player esté listo
+    overlay.style.display = 'none';
+    
     const startMusic = () => {
-        if (player && playerReady && !musicStarted) {
+        console.log('Start music clicked');
+        
+        // Reproducir la música
+        if (player && playerReady) {
+            console.log('Playing music now');
             player.playVideo();
             musicStarted = true;
             if (musicButton) updateMusicButton(true);
         }
         
+        // Ocultar el overlay
         overlay.classList.add('fade-out');
         setTimeout(() => {
             overlay.style.display = 'none';
@@ -377,8 +413,22 @@ function initMusicOverlay() {
     });
 }
 
+// Mostrar el overlay solo cuando el player esté listo
+function showMusicOverlay() {
+    const overlay = document.getElementById('music-overlay');
+    if (overlay) {
+        console.log('Showing music overlay - player is ready');
+        overlay.style.display = 'flex';
+        setTimeout(() => {
+            overlay.style.opacity = '1';
+        }, 100);
+    }
+}
+
 // ===== INICIALIZACIÓN =====
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded');
+    
     loadInvitationData();
     
     updateCountdown();
@@ -390,6 +440,8 @@ document.addEventListener('DOMContentLoaded', function() {
     initFloralFadeEffect();
     initPhotoAnimation();
     initBackgroundMusic();
+    
+    // Inicializar el overlay (pero permanecerá oculto hasta que el player esté listo)
     initMusicOverlay();
     
     document.body.style.opacity = '0';

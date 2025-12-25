@@ -64,6 +64,8 @@ body {
 
 /* ===== OVERLAY DE MÚSICA - PRIORIDAD MÁXIMA ===== */
 #music-overlay {
+    display: none;        
+    opacity: 0;
     position: fixed;
     top: 0;
     left: 0;
