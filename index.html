@@ -19,6 +19,21 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <!-- Overlay de Música - DEBE SER LO PRIMERO -->
+    <div id="music-overlay">
+        <div class="music-overlay-content">
+            <div class="music-card">
+                <i class="fas fa-envelope music-overlay-icon"></i>
+                <p class="music-overlay-text">
+                    Te ha llegado una invitación<br>
+                </p>
+                <button class="music-overlay-button" id="open-invitation-btn">
+                    <i class="fas fa-envelope-open"></i> Abrir Invitación
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Reproductor de música oculto -->
     <div id="youtube-player"></div>
     
@@ -227,9 +242,8 @@
                 <p class="gift-text">
                     El mejor regalo es tu presencia, pero si<br>
                     deseas tener un detalle con nosotros,<br>
-                    les dejamos estas opciones:
+                    una ayuda económica sería lo ideal.
                 </p>
-                <p class="gift-subtitle"><i class="fas fa-envelope"></i> LLUVIA DE SOBRES</p>
             </div>
         </div>
     </section>
@@ -258,7 +272,7 @@
                         <i class="fas fa-music"></i>
                     </div>
                     <h3 class="detail-title">Música</h3>
-                    <p class="detail-text">¡Prepárate para bailar! Habrá música en vivo y DJ para que disfrutes toda la noche.</p>
+                    <p class="detail-text">¡Prepárate para bailar! Habrá DJ para que disfrutes toda la noche.</p>
                 </div>
                 <div class="detail-item">
                     <div class="detail-icon">
@@ -272,56 +286,80 @@
     </section>
 
     <!-- Información de Hospedaje -->
-<section class="accommodation">
-    <div class="container">
-        <h2 class="section-title"><i class="fas fa-hotel"></i> ¿Vienes de fuera?</h2>
-        <div class="accommodation-content">
-            <p class="accommodation-text">
-                Si necesitas hospedaje, te recomendamos estos hoteles cercanos en Teziutlán, Puebla:
-            </p>
-            <div class="hotel-list">
-                <div class="hotel-item">
-                    <div class="hotel-icon">
-                        <i class="fas fa-hotel"></i>
+    <section class="accommodation">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-hotel"></i> ¿Vienes de fuera?</h2>
+            <div class="accommodation-content">
+                <p class="accommodation-text">
+                    Si necesitas hospedaje, te recomendamos estos hoteles cercanos en Teziutlán, Puebla:
+                </p>
+                <div class="hotel-list">
+                    <div class="hotel-item">
+                        <div class="hotel-icon">
+                            <i class="fas fa-hotel"></i>
+                        </div>
+                        <h4>Hotel Talavera Teziutlán</h4>
+                        <p class="hotel-rating"><i class="fas fa-star"></i> 9.5/10 - Excelente ubicación</p>
+                        <p class="hotel-address"><i class="fas fa-location-dot"></i> Calle Hidalgo #1302 esquina con Calle Mina, Centro</p>
+                        <button class="btn-hotel" onclick="window.open('https://www.booking.com/hotel/mx/talavera-teziutlan.es.html', '_blank')">
+                            <i class="fas fa-external-link-alt"></i> Ver en Booking
+                        </button>
                     </div>
-                    <h4>Hotel Talavera Teziutlán</h4>
-                    <p class="hotel-rating"><i class="fas fa-star"></i> 9.5/10 - Excelente ubicación</p>
-                    <p class="hotel-address"><i class="fas fa-location-dot"></i> Calle Hidalgo #1302 esquina con Calle Mina, Centro</p>
-                </div>
-                
-                <div class="hotel-item">
-                    <div class="hotel-icon">
-                        <i class="fas fa-hotel"></i>
+                    
+                    <div class="hotel-item">
+                        <div class="hotel-icon">
+                            <i class="fas fa-hotel"></i>
+                        </div>
+                        <h4>Hotel Virreynal</h4>
+                        <p class="hotel-rating"><i class="fas fa-star"></i> 9.5/10 - Excelente ubicación</p>
+                        <p class="hotel-address"><i class="fas fa-location-dot"></i> 802 Avenida Miguel Hidalgo</p>
+                        <button class="btn-hotel" onclick="window.open('https://www.booking.com/hotel/mx/virreynal-teziutlan.es.html', '_blank')">
+                            <i class="fas fa-external-link-alt"></i> Ver en Booking
+                        </button>
                     </div>
-                    <h4>Hotel Central Teziutlán</h4>
-                    <p class="hotel-rating"><i class="fas fa-star"></i> 9.6/10 - Excelente ubicación</p>
-                    <p class="hotel-address"><i class="fas fa-location-dot"></i> Av. Miguel Hidalgo No. 801 Centro</p>
-                </div>
-                
-                <div class="hotel-item">
-                    <div class="hotel-icon">
-                        <i class="fas fa-hotel"></i>
+                    
+                    <div class="hotel-item">
+                        <div class="hotel-icon">
+                            <i class="fas fa-hotel"></i>
+                        </div>
+                        <h4>Hotel Central Teziutlán</h4>
+                        <p class="hotel-rating"><i class="fas fa-star"></i> 9.6/10 - Excelente ubicación</p>
+                        <p class="hotel-address"><i class="fas fa-location-dot"></i> Av. Miguel Hidalgo No. 801 Centro</p>
+                        <button class="btn-hotel" onclick="window.open('https://www.booking.com/hotel/mx/central-teziutlan.es.html', '_blank')">
+                            <i class="fas fa-external-link-alt"></i> Ver en Booking
+                        </button>
                     </div>
-                    <h4>Hotel Colonial</h4>
-                    <p class="hotel-rating"><i class="fas fa-star"></i> 9.7/10 - Excelente ubicación</p>
-                    <p class="hotel-address"><i class="fas fa-location-dot"></i> Cuauhtémoc 605 Centro</p>
-                </div>
-                
-                <div class="hotel-item">
-                    <div class="hotel-icon">
-                        <i class="fas fa-hotel"></i>
+                    
+                    <div class="hotel-item">
+                        <div class="hotel-icon">
+                            <i class="fas fa-hotel"></i>
+                        </div>
+                        <h4>Hotel Colonial</h4>
+                        <p class="hotel-rating"><i class="fas fa-star"></i> 9.7/10 - Excelente ubicación</p>
+                        <p class="hotel-address"><i class="fas fa-location-dot"></i> Cuauhtémoc 605 Centro</p>
+                        <button class="btn-hotel" onclick="window.open('https://www.booking.com/hotel/mx/colonial-teziutlan.es.html', '_blank')">
+                            <i class="fas fa-external-link-alt"></i> Ver en Booking
+                        </button>
                     </div>
-                    <h4>Hotel Danini</h4>
-                    <p class="hotel-rating"><i class="fas fa-star"></i> 9.2/10 - Excelente ubicación</p>
-                    <p class="hotel-address"><i class="fas fa-location-dot"></i> Circuito Juan Pablo II No. 10, Centro</p>
+                    
+                    <div class="hotel-item">
+                        <div class="hotel-icon">
+                            <i class="fas fa-hotel"></i>
+                        </div>
+                        <h4>Hotel Danini</h4>
+                        <p class="hotel-rating"><i class="fas fa-star"></i> 9.2/10 - Excelente ubicación</p>
+                        <p class="hotel-address"><i class="fas fa-location-dot"></i> Circuito Juan Pablo II No. 10, Centro</p>
+                        <button class="btn-hotel" onclick="window.open('https://www.booking.com/hotel/mx/danini.es.html', '_blank')">
+                            <i class="fas fa-external-link-alt"></i> Ver en Booking
+                        </button>
+                    </div>
                 </div>
+                <p class="accommodation-note">
+                    <i class="fas fa-comment-dots"></i> Todos los hoteles están en Teziutlán, a 30-40 minutos del evento.
+                </p>
             </div>
-            <p class="accommodation-note">
-                <i class="fas fa-comment-dots"></i> Todos los hoteles están en Teziutlán, a 30-40 minutos del evento.
-            </p>
         </div>
-    </div>
-</section>
+    </section>
 
     <!-- Confirmación -->
     <section class="confirmation">

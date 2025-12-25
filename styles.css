@@ -1,3 +1,4 @@
+
 * {
     margin: 0;
     padding: 0;
@@ -59,6 +60,119 @@ body {
     margin: 0 auto;
     padding: 0 30px;
     animation: fadeIn 1.2s ease-out;
+}
+
+/* ===== OVERLAY DE MÚSICA - PRIORIDAD MÁXIMA ===== */
+#music-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(253, 252, 250, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999999;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    cursor: pointer;
+    opacity: 1;
+    transition: opacity 1s ease, backdrop-filter 1s ease;
+}
+
+#music-overlay.fade-out {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+    pointer-events: none;
+}
+
+.music-overlay-content {
+    text-align: center;
+    animation: fadeInGently 1.5s ease-out;
+    transition: transform 1s ease, opacity 0.8s ease;
+    z-index: 1000000;
+}
+
+#music-overlay.fade-out .music-overlay-content {
+    transform: translateY(20px);
+    opacity: 0;
+}
+
+.music-card {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 50px 60px;
+    border-radius: 30px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(125, 155, 147, 0.2);
+}
+
+.music-overlay-icon {
+    font-size: 5rem;
+    color: var(--color-sage);
+    margin-bottom: 25px;
+    display: block;
+    animation: envelopePulse 3s ease-in-out infinite;
+    filter: drop-shadow(0 5px 15px rgba(125, 155, 147, 0.3));
+}
+
+@keyframes envelopePulse {
+    0%, 100% { 
+        transform: scale(1) translateY(0px);
+        opacity: 0.9;
+    }
+    50% { 
+        transform: scale(1.1) translateY(-5px);
+        opacity: 1;
+    }
+}
+
+.music-overlay-text {
+    font-family: var(--font-body);
+    font-size: 1.6rem;
+    color: var(--color-dark-gray);
+    margin-bottom: 35px;
+    line-height: 1.9;
+    font-weight: 500;
+}
+
+.music-overlay-button {
+    padding: 20px 55px;
+    font-family: var(--font-body);
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: white;
+    background: linear-gradient(135deg, var(--color-sage) 0%, var(--color-soft-blue) 100%);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(125, 155, 147, 0.35);
+    transition: all 0.4s ease;
+    letter-spacing: 0.5px;
+}
+
+.music-overlay-button:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 15px 40px rgba(125, 155, 147, 0.5);
+}
+
+.music-overlay-button i {
+    margin-right: 10px;
+    font-size: 1.2rem;
+}
+
+@keyframes fadeInGently {
+    0% {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* ===== FLORES DECORATIVAS ===== */
@@ -902,33 +1016,6 @@ body {
     transition: all 0.6s ease;
     border: 2px solid rgba(125, 155, 147, 0.1);
 }
-.hotel-item p {
-    font-family: var(--font-body);
-    font-size: 1.4rem;
-    color: var(--color-light-gray);
-}
-
-.hotel-item p i {
-    margin-right: 8px;
-    color: var(--color-sage);
-}
-
-/* Nuevos estilos para ratings */
-.hotel-rating {
-    font-weight: 600;
-    color: var(--color-sage) !important;
-    margin: 10px 0;
-    font-size: 1.3rem !important;
-}
-
-.hotel-rating i {
-    color: var(--color-gold) !important;
-}
-
-.hotel-address {
-    font-size: 1.2rem !important;
-    line-height: 1.6;
-}
 
 .hotel-item:hover {
     transform: translateY(-10px);
@@ -959,6 +1046,49 @@ body {
 .hotel-item p i {
     margin-right: 8px;
     color: var(--color-sage);
+}
+
+.hotel-rating {
+    font-weight: 600;
+    color: var(--color-sage) !important;
+    margin: 10px 0;
+    font-size: 1.3rem !important;
+}
+
+.hotel-rating i {
+    color: var(--color-gold) !important;
+}
+
+.hotel-address {
+    font-size: 1.2rem !important;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.btn-hotel {
+    margin-top: 20px;
+    padding: 14px 35px;
+    font-family: var(--font-body);
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: white;
+    background: linear-gradient(135deg, var(--color-sage) 0%, var(--color-soft-blue) 100%);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    box-shadow: 0 8px 25px rgba(125, 155, 147, 0.3);
+    letter-spacing: 0.5px;
+}
+
+.btn-hotel i {
+    margin-right: 8px;
+}
+
+.btn-hotel:hover {
+    background: linear-gradient(135deg, #6a8379 0%, var(--color-sage) 100%);
+    transform: translateY(-5px);
+    box-shadow: 0 12px 35px rgba(125, 155, 147, 0.5);
 }
 
 .accommodation-note {
@@ -1129,15 +1259,15 @@ body {
 }
 
 .music-button {
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
     background: linear-gradient(135deg, var(--color-sage) 0%, var(--color-soft-blue) 100%);
     border: 3px solid white;
     color: white;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     cursor: pointer;
-    box-shadow: 0 8px 25px rgba(125, 155, 147, 0.4);
+    box-shadow: 0 8px 25px rgba(125, 155, 147, 0.6);
     transition: all 0.4s ease;
     display: flex;
     align-items: center;
@@ -1147,7 +1277,7 @@ body {
 
 .music-button:hover {
     transform: scale(1.15);
-    box-shadow: 0 12px 35px rgba(125, 155, 147, 0.6);
+    box-shadow: 0 12px 35px rgba(125, 155, 147, 0.8);
 }
 
 .music-button.paused {
@@ -1190,6 +1320,30 @@ body {
 
 /* MÓVILES - Prioridad */
 @media (max-width: 768px) {
+    #music-overlay {
+        background: rgba(253, 252, 250, 0.2);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+    
+    .music-card {
+        padding: 40px 35px;
+        margin: 0 20px;
+    }
+    
+    .music-overlay-icon {
+        font-size: 3.5rem;
+    }
+    
+    .music-overlay-text {
+        font-size: 1.4rem;
+    }
+    
+    .music-overlay-button {
+        padding: 16px 45px;
+        font-size: 1.3rem;
+    }
+    
     .hero {
         padding: 80px 15px;
         min-height: 90vh;
@@ -1519,23 +1673,22 @@ body {
     }
     
     .hotel-item p {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
     }
-    .hotel-item h4 {
-    font-size: 1.6rem;
-}
-
-.hotel-item p {
-    font-size: 1.1rem;
-}
-
-.hotel-rating {
-    font-size: 1.2rem !important;
-}
-
-.hotel-address {
-    font-size: 1.1rem !important;
-}
+    
+    .hotel-rating {
+        font-size: 1.2rem !important;
+    }
+    
+    .hotel-address {
+        font-size: 1.1rem !important;
+    }
+    
+    .btn-hotel {
+        padding: 12px 30px;
+        font-size: 1.1rem;
+        width: 100%;
+    }
     
     .accommodation-note {
         font-size: 1.3rem;
@@ -1616,14 +1769,34 @@ body {
     }
     
     .music-button {
-        width: 55px;
-        height: 55px;
-        font-size: 1.4rem;
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
     }
     
     #music-control {
         bottom: 20px;
         right: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .music-card {
+        padding: 35px 30px;
+        margin: 0 15px;
+    }
+    
+    .music-overlay-icon {
+        font-size: 3.2rem;
+    }
+    
+    .music-overlay-text {
+        font-size: 1.3rem;
+    }
+    
+    .music-overlay-button {
+        padding: 15px 40px;
+        font-size: 1.25rem;
     }
 }
 
@@ -1680,9 +1853,9 @@ body {
     }
     
     .music-button {
-        width: 50px;
-        height: 50px;
-        font-size: 1.2rem;
+        width: 55px;
+        height: 55px;
+        font-size: 1.4rem;
     }
     
     #music-control {
@@ -1704,170 +1877,4 @@ html {
 ::-moz-selection {
     background-color: var(--color-sage);
     color: white;
-}
-/* Hint de música para móviles */
-#music-hint {
-    position: fixed;
-    top: 80px;
-    left: 50%;
-    transform: translateX(-50%) translateY(20px);
-    z-index: 9998;
-    background: rgba(125, 155, 147, 0.95);
-    padding: 15px 30px;
-    border-radius: 30px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
-    opacity: 0;
-    transition: all 0.5s ease;
-    pointer-events: none;
-}
-
-.music-hint-content {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    color: white;
-    font-family: var(--font-body);
-    font-size: 1.1rem;
-    white-space: nowrap;
-}
-
-.music-hint-content i {
-    font-size: 1.5rem;
-    animation: bounce 1s ease-in-out infinite;
-}
-
-@keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
-}
-
-@media (max-width: 768px) {
-    #music-hint {
-        top: 60px;
-        padding: 12px 25px;
-    }
-    
-    .music-hint-content {
-        font-size: 1rem;
-        gap: 10px;
-    }
-    
-    .music-hint-content i {
-        font-size: 1.3rem;
-    }
-    /* ===== MUSIC CONTROL MEJORADO ===== */
-#music-control {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    z-index: 10000;
-}
-
-.music-button {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--color-sage) 0%, var(--color-soft-blue) 100%);
-    border: 3px solid white;
-    color: white;
-    font-size: 1.8rem;
-    cursor: pointer;
-    box-shadow: 0 8px 25px rgba(125, 155, 147, 0.6);
-    transition: all 0.4s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    animation: pulse 2s ease-in-out infinite;
-}
-
-.music-button:hover {
-    transform: scale(1.15);
-    box-shadow: 0 12px 35px rgba(125, 155, 147, 0.8);
-}
-
-.music-button.paused {
-    background: linear-gradient(135deg, var(--color-light-gray) 0%, var(--color-dark-gray) 100%);
-    animation: none;
-}
-
-.music-button i {
-    pointer-events: none;
-}
-
-/* ===== HINT DE MÚSICA ===== */
-#music-hint {
-    position: fixed;
-    top: 80px;
-    left: 50%;
-    transform: translateX(-50%) translateY(20px);
-    z-index: 9998;
-    background: rgba(125, 155, 147, 0.95);
-    padding: 15px 30px;
-    border-radius: 30px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
-    opacity: 0;
-    transition: all 0.5s ease;
-    pointer-events: none;
-}
-
-.music-hint-content {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    color: white;
-    font-family: var(--font-body);
-    font-size: 1.1rem;
-    white-space: nowrap;
-}
-
-.music-hint-content i {
-    font-size: 1.5rem;
-    animation: bounce 1s ease-in-out infinite;
-}
-
-@keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
-}
-
-/* ===== RESPONSIVE PARA MÚSICA ===== */
-@media (max-width: 768px) {
-    .music-button {
-        width: 60px;
-        height: 60px;
-        font-size: 1.5rem;
-    }
-    
-    #music-control {
-        bottom: 20px;
-        right: 20px;
-    }
-    
-    #music-hint {
-        top: 60px;
-        padding: 12px 25px;
-    }
-    
-    .music-hint-content {
-        font-size: 1rem;
-        gap: 10px;
-    }
-    
-    .music-hint-content i {
-        font-size: 1.3rem;
-    }
-}
-
-@media (max-width: 380px) {
-    .music-button {
-        width: 55px;
-        height: 55px;
-        font-size: 1.4rem;
-    }
-    
-    #music-control {
-        bottom: 15px;
-        right: 15px;
-    }
-}
 }

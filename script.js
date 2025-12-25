@@ -7,6 +7,12 @@ const PHONE_NOVIA = '522321765311';
 let guestName = 'Querido Invitado';
 let guestCount = '';
 
+// Variables de música
+let player;
+let playerReady = false;
+let musicStarted = false;
+let musicButton = null;
+
 // ===== CONTADOR REGRESIVO =====
 function updateCountdown() {
     const now = new Date().getTime();
@@ -241,12 +247,7 @@ function initPhotoAnimation() {
     }
 }
 
-// ===== MÚSICA DE FONDO - MEJORADO =====
-let player;
-let playerReady = false;
-let musicStarted = false;
-let musicButton = null;
-
+// ===== MÚSICA =====
 function initBackgroundMusic() {
     const tag = document.createElement('script');
     tag.src = 'https://www.youtube.com/iframe_api';
@@ -287,34 +288,10 @@ function updateMusicButton(isPlaying) {
     }
 }
 
-function tryStartMusic() {
-    if (!playerReady || !player || musicStarted) return;
-    
-    try {
-        player.playVideo();
-        musicStarted = true;
-        updateMusicButton(true);
-    } catch (e) {
-        // Error silencioso
-    }
-}
-
 function onPlayerReady(event) {
     playerReady = true;
     event.target.setVolume(40);
-    
     createMusicControl();
-    
-    // Múltiples activadores para iniciar la música
-    window.addEventListener('scroll', tryStartMusic, { passive: true, once: true });
-    window.addEventListener('touchstart', tryStartMusic, { passive: true, once: true });
-    window.addEventListener('touchmove', tryStartMusic, { passive: true, once: true });
-    window.addEventListener('mousemove', tryStartMusic, { passive: true, once: true });
-    
-    document.addEventListener('click', function(e) {
-        if (e.target && e.target.closest('#music-control')) return;
-        tryStartMusic();
-    }, { once: true, passive: true });
 }
 
 function onPlayerStateChange(event) {
@@ -346,19 +323,15 @@ function createMusicControl() {
         
         if (!playerReady || !player) return;
         
-        try {
-            const state = player.getPlayerState();
-            
-            if (state === YT.PlayerState.PLAYING) {
-                player.pauseVideo();
-                updateMusicButton(false);
-            } else {
-                player.playVideo();
-                musicStarted = true;
-                updateMusicButton(true);
-            }
-        } catch (e) {
-            // Error silencioso
+        const state = player.getPlayerState();
+        
+        if (state === 1) {
+            player.pauseVideo();
+            updateMusicButton(false);
+        } else {
+            player.playVideo();
+            musicStarted = true;
+            updateMusicButton(true);
         }
     };
     
@@ -366,6 +339,41 @@ function createMusicControl() {
     musicButton.addEventListener('touchend', (e) => {
         e.preventDefault();
         toggleMusic(e);
+    });
+}
+
+// ===== OVERLAY DE MÚSICA =====
+function initMusicOverlay() {
+    const overlay = document.getElementById('music-overlay');
+    const openButton = document.getElementById('open-invitation-btn');
+    
+    if (!overlay || !openButton) return;
+    
+    const startMusic = () => {
+        if (player && playerReady && !musicStarted) {
+            player.playVideo();
+            musicStarted = true;
+            if (musicButton) updateMusicButton(true);
+        }
+        
+        overlay.classList.add('fade-out');
+        setTimeout(() => {
+            overlay.style.display = 'none';
+        }, 1000);
+    };
+    
+    // Evento del botón
+    openButton.addEventListener('click', startMusic);
+    openButton.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        startMusic();
+    });
+    
+    // También permitir clic en todo el overlay
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+            startMusic();
+        }
     });
 }
 
@@ -382,6 +390,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initFloralFadeEffect();
     initPhotoAnimation();
     initBackgroundMusic();
+    initMusicOverlay();
     
     document.body.style.opacity = '0';
     setTimeout(() => {
