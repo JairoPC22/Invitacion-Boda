@@ -249,17 +249,7 @@ function initPhotoAnimation() {
     }
 }
 
-/* ===== MÚSICA =====
-Nota: Añade esto al CSS para ocultar el overlay inicialmente:
-
-#music-overlay {
-    display: none;  <-- Añadir esta línea en el CSS
-    opacity: 0;     <-- Añadir esta línea en el CSS
-}
-
-El JavaScript lo mostrará cuando el player esté listo.
-*/
-
+// ===== MÚSICA =====
 function initBackgroundMusic() {
     // Cargar API de YouTube
     if (!window.YT) {
@@ -275,19 +265,20 @@ window.onYouTubeIframeAPIReady = function() {
     apiReady = true;
     console.log('YouTube API ready');
     
-    // Crear el reproductor
+    // Crear el reproductor con AUTOPLAY ACTIVADO (se bloqueará hasta la interacción del usuario)
     player = new YT.Player('youtube-player', {
         height: '0',
         width: '0',
         videoId: 'uMxMmcpcWHE',
         playerVars: {
-            autoplay: 0,
+            autoplay: 1,  // CAMBIADO A 1
             loop: 1,
             playlist: 'uMxMmcpcWHE',
             controls: 0,
             showinfo: 0,
             modestbranding: 1,
-            playsinline: 1
+            playsinline: 1,
+            enablejsapi: 1
         },
         events: {
             onReady: onPlayerReady,
@@ -299,13 +290,20 @@ window.onYouTubeIframeAPIReady = function() {
 function onPlayerReady(event) {
     playerReady = true;
     console.log('Player ready');
+    
+    // Configurar volumen
     event.target.setVolume(40);
     
-    // Si el usuario ya interactuó (en móviles puede pasar), intentar reproducir
+    // Si el usuario ya interactuó antes de que el player estuviera listo
     if (userInteracted && !musicStarted) {
         console.log('User already interacted, starting music');
-        event.target.playVideo();
-        musicStarted = true;
+        try {
+            event.target.unMute();
+            event.target.playVideo();
+            musicStarted = true;
+        } catch (e) {
+            console.error('Error auto-playing:', e);
+        }
     }
     
     createMusicControl();
@@ -352,8 +350,10 @@ function createMusicControl() {
     musicButton = document.getElementById('toggle-music');
     
     const toggleMusic = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
         
         if (!playerReady || !player) {
             console.log('Player not ready yet');
@@ -363,26 +363,38 @@ function createMusicControl() {
         // Marcar que el usuario interactuó
         userInteracted = true;
         
-        const state = player.getPlayerState();
-        
-        if (state === YT.PlayerState.PLAYING) {
-            player.pauseVideo();
-            updateMusicButton(false);
-        } else {
-            // Intentar reproducir múltiples veces para móviles
-            player.playVideo();
-            setTimeout(() => player.playVideo(), 200);
-            setTimeout(() => player.playVideo(), 400);
-            musicStarted = true;
-            updateMusicButton(true);
+        try {
+            const state = player.getPlayerState();
+            
+            if (state === YT.PlayerState.PLAYING) {
+                player.pauseVideo();
+                updateMusicButton(false);
+            } else {
+                // Unmute primero (importante en móviles)
+                player.unMute();
+                player.setVolume(40);
+                player.playVideo();
+                musicStarted = true;
+                updateMusicButton(true);
+                
+                // Verificar después de 500ms
+                setTimeout(() => {
+                    if (player.getPlayerState() !== YT.PlayerState.PLAYING) {
+                        player.playVideo();
+                    }
+                }, 500);
+            }
+        } catch (error) {
+            console.error('Error toggling music:', error);
         }
     };
     
-    musicButton.addEventListener('click', toggleMusic, { passive: false });
-    musicButton.addEventListener('touchend', (e) => {
+    // Usar eventos nativos
+    musicButton.onclick = toggleMusic;
+    musicButton.ontouchend = (e) => {
         e.preventDefault();
         toggleMusic(e);
-    }, { passive: false });
+    };
 }
 
 // ===== OVERLAY DE MÚSICA =====
@@ -395,29 +407,41 @@ function initMusicOverlay() {
     // Mantener el overlay oculto hasta que el player esté listo
     overlay.style.display = 'none';
     
-    const startMusic = () => {
-        console.log('Start music clicked');
+    const startMusic = (e) => {
+        console.log('Start music clicked - User interaction detected');
         userInteracted = true;
         
-        // Reproducir la música INMEDIATAMENTE después del clic del usuario
+        // CRUCIAL: Ejecutar playVideo() SÍNCRONAMENTE dentro del evento de clic
         if (player && playerReady) {
-            console.log('Playing music now');
+            console.log('Executing playVideo() synchronously');
             
-            // Intentar reproducir varias veces para asegurar que funcione en móviles
-            const attemptPlay = () => {
+            try {
+                // Método 1: Play directo
                 player.playVideo();
+                console.log('playVideo() called');
+                
+                // Método 2: Unmute por si está muteado (algunos móviles lo requieren)
+                player.unMute();
+                player.setVolume(40);
+                
                 musicStarted = true;
                 if (musicButton) updateMusicButton(true);
-            };
-            
-            // Primer intento inmediato
-            attemptPlay();
-            
-            // Segundo intento después de 300ms (por si el primero falló en móvil)
-            setTimeout(attemptPlay, 300);
-            
-            // Tercer intento después de 600ms
-            setTimeout(attemptPlay, 600);
+                
+                // Verificar después de 500ms si está reproduciendo
+                setTimeout(() => {
+                    const state = player.getPlayerState();
+                    console.log('Player state after 500ms:', state);
+                    if (state !== YT.PlayerState.PLAYING) {
+                        console.log('Not playing, trying again');
+                        player.playVideo();
+                    }
+                }, 500);
+                
+            } catch (error) {
+                console.error('Error playing video:', error);
+            }
+        } else {
+            console.log('Player not ready:', { player: !!player, playerReady });
         }
         
         // Ocultar el overlay
@@ -427,22 +451,21 @@ function initMusicOverlay() {
         }, 1000);
     };
     
-    // Evento del botón - IMPORTANTE: sin preventDefault para permitir interacción total
-    openButton.addEventListener('click', (e) => {
-        startMusic();
-    }, { passive: false });
+    // IMPORTANTE: Usar eventos nativos sin wrappers adicionales
+    openButton.onclick = startMusic;
     
-    openButton.addEventListener('touchend', (e) => {
+    // Para touch devices
+    openButton.ontouchend = (e) => {
         e.preventDefault();
-        startMusic();
-    }, { passive: false });
+        startMusic(e);
+    };
     
     // También permitir clic en todo el overlay
-    overlay.addEventListener('click', (e) => {
+    overlay.onclick = (e) => {
         if (e.target === overlay) {
-            startMusic();
+            startMusic(e);
         }
-    });
+    };
 }
 
 // Mostrar el overlay solo cuando el player esté listo
