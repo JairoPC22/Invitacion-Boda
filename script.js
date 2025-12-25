@@ -13,6 +13,7 @@ let playerReady = false;
 let musicStarted = false;
 let musicButton = null;
 let apiReady = false;
+let userInteracted = false;
 
 // ===== CONTADOR REGRESIVO =====
 function updateCountdown() {
@@ -299,6 +300,14 @@ function onPlayerReady(event) {
     playerReady = true;
     console.log('Player ready');
     event.target.setVolume(40);
+    
+    // Si el usuario ya interactuó (en móviles puede pasar), intentar reproducir
+    if (userInteracted && !musicStarted) {
+        console.log('User already interacted, starting music');
+        event.target.playVideo();
+        musicStarted = true;
+    }
+    
     createMusicControl();
     
     // MOSTRAR EL OVERLAY AHORA QUE TODO ESTÁ LISTO
@@ -351,23 +360,29 @@ function createMusicControl() {
             return;
         }
         
+        // Marcar que el usuario interactuó
+        userInteracted = true;
+        
         const state = player.getPlayerState();
         
         if (state === YT.PlayerState.PLAYING) {
             player.pauseVideo();
             updateMusicButton(false);
         } else {
+            // Intentar reproducir múltiples veces para móviles
             player.playVideo();
+            setTimeout(() => player.playVideo(), 200);
+            setTimeout(() => player.playVideo(), 400);
             musicStarted = true;
             updateMusicButton(true);
         }
     };
     
-    musicButton.addEventListener('click', toggleMusic);
+    musicButton.addEventListener('click', toggleMusic, { passive: false });
     musicButton.addEventListener('touchend', (e) => {
         e.preventDefault();
         toggleMusic(e);
-    });
+    }, { passive: false });
 }
 
 // ===== OVERLAY DE MÚSICA =====
@@ -382,13 +397,27 @@ function initMusicOverlay() {
     
     const startMusic = () => {
         console.log('Start music clicked');
+        userInteracted = true;
         
-        // Reproducir la música
+        // Reproducir la música INMEDIATAMENTE después del clic del usuario
         if (player && playerReady) {
             console.log('Playing music now');
-            player.playVideo();
-            musicStarted = true;
-            if (musicButton) updateMusicButton(true);
+            
+            // Intentar reproducir varias veces para asegurar que funcione en móviles
+            const attemptPlay = () => {
+                player.playVideo();
+                musicStarted = true;
+                if (musicButton) updateMusicButton(true);
+            };
+            
+            // Primer intento inmediato
+            attemptPlay();
+            
+            // Segundo intento después de 300ms (por si el primero falló en móvil)
+            setTimeout(attemptPlay, 300);
+            
+            // Tercer intento después de 600ms
+            setTimeout(attemptPlay, 600);
         }
         
         // Ocultar el overlay
@@ -398,12 +427,15 @@ function initMusicOverlay() {
         }, 1000);
     };
     
-    // Evento del botón
-    openButton.addEventListener('click', startMusic);
+    // Evento del botón - IMPORTANTE: sin preventDefault para permitir interacción total
+    openButton.addEventListener('click', (e) => {
+        startMusic();
+    }, { passive: false });
+    
     openButton.addEventListener('touchend', (e) => {
         e.preventDefault();
         startMusic();
-    });
+    }, { passive: false });
     
     // También permitir clic en todo el overlay
     overlay.addEventListener('click', (e) => {
